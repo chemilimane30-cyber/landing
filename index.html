@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextCraft </title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --deep-navy: #10233D;
+            --dark-navy: #0B1B31;
+            --brand-gold: #F0B83F;
+            --light-gold: #F7CC70;
+            --cream: #F5F1DF;
+            --white: #FFFFFF;
+            --soft-gray: #E8E6DE;
+            --text-muted: #94A3B8;
+            --text-dark: #1E293B;
+            --glass-navy: rgba(16, 35, 61, 0.85);
+            --border-gold: rgba(240, 184, 63, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-navy);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Global Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-navy);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E3A8A;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brand-gold);
+        }
+
+        /* --- Utilities & Typography --- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 3.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+            box-shadow: 0 4px 20px rgba(240, 184, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--light-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(240, 184, 63, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--border-gold);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--brand-gold);
+            color: var(--brand-gold);
+            background: rgba(240, 184, 63, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            background: rgba(240, 184, 63, 0.1);
+            border: 1px solid var(--border-gold);
+            color: var(--brand-gold);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: var(--glass-navy);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 90px;
+            transition: var(--transition);
+            padding-left: 0;
+        }
+
+        header.scrolled .nav-container {
+            height: 70px;
+        }
+
+        /* SVG Ant Builder Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-left: -3.5rem;
+        }
+
+        .logo-svg {
+            width: 44px;
+            height: 44px;
+        }
+        .logo-icon {
+    height: 42px;
+    width: auto;
+    object-fit: contain; /* تضمن استعراض اللوغو دون تشويه أبعاده */
+    display: block;
+    transition: var(--transition);
+}
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--brand-gold);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-login {
+            color: var(--white);
+            background: transparent;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 80% 20%, #10233D 0%, #0B1B31 60%);
+            overflow: hidden;
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            background-image: radial-gradient(var(--brand-gold) 1px, transparent 1px), linear-gradient(to right, rgba(240,184,63,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(240,184,63,0.1) 1px, transparent 1px);
+            background-size: 40px 40px, 80px 80px, 80px 80px;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--brand-gold);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .connection-node {
+            position: absolute;
+            background: rgba(16, 35, 61, 0.7);
+            border: 1px solid var(--border-gold);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.25rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .connection-node:hover {
+            border-color: var(--brand-gold);
+            transform: scale(1.05);
+        }
+
+        .node-student {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            animation-delay: 0s;
+        }
+
+        .node-course {
+            top: 40%;
+            right: 5%;
+            width: 240px;
+            animation-delay: 2s;
+        }
+
+        .node-trainer {
+            bottom: 10%;
+            left: 20%;
+            width: 220px;
+            animation-delay: 4s;
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .node-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .node-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .node-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .skill-tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(240, 184, 63, 0.15);
+            color: var(--brand-gold);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .connecting-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- Why NextCraft Section --- */
+        .why-section {
+            padding: 100px 0;
+            background: var(--deep-navy);
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-navy);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--brand-gold), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: rgba(240, 184, 63, 0.1);
+            color: var(--brand-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Courses Section & Search/Filter --- */
+        .courses-section {
+            padding: 100px 0;
+            background: var(--dark-navy);
+        }
+
+        .filter-wrapper {
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border-radius: 50px;
+            background: var(--deep-navy);
+            border: 1px solid var(--border-gold);
+            color: var(--white);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 15px rgba(240, 184, 63, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1.4rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--brand-gold);
+            font-size: 1.1rem;
+        }
+
+        .category-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+
+        .chip {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            background: var(--deep-navy);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chip:hover, .chip.active {
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+            border-color: var(--brand-gold);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: var(--deep-navy);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-gold);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .course-img {
+            height: 180px;
+            width: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--deep-navy), transparent);
+        }
+
+        .course-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .course-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        .course-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .course-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1rem;
+        }
+
+        .course-count {
+            font-size: 0.8rem;
+            color: var(--cream);
+            font-weight: 600;
+        }
+
+        .btn-explore {
+            font-size: 0.85rem;
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .btn-explore:hover {
+            gap: 0.8rem;
+        }
+
+        /* --- How It Works --- */
+        .how-section {
+            padding: 100px 0;
+            background: var(--deep-navy);
+            position: relative;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: border-box;
+            background-image: linear-gradient(90deg, var(--brand-gold) 50%, transparent 50%);
+            background-size: 15px 1px;
+            z-index: 1;
+        }
+
+        .timeline-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--dark-navy);
+            border: 2px solid var(--brand-gold);
+            color: var(--brand-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 0 20px rgba(240, 184, 63, 0.2);
+        }
+
+        .timeline-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-step p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Trainers Section --- */
+        .trainers-section {
+            padding: 100px 0;
+            background: var(--dark-navy);
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .trainer-card {
+            background: var(--deep-navy);
+            border-radius: 20px;
+            border: 1px dashed var(--border-gold);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .trainer-card:hover {
+            border-style: solid;
+            border-color: var(--brand-gold);
+            transform: translateY(-50px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .trainer-avatar-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(240, 184, 63, 0.1);
+            border: 2px solid var(--brand-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--brand-gold);
+            margin-bottom: 1.25rem;
+        }
+
+        .trainer-badge {
+            font-size: 0.75rem;
+            background: rgba(240, 184, 63, 0.15);
+            color: var(--brand-gold);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .trainer-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .trainer-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trainer-cta-box {
+            background: linear-gradient(135deg, var(--deep-navy), #162C4E);
+            border: 1px solid var(--border-gold);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            padding: 80px 0;
+            background: radial-gradient(circle, #162C4E 0%, #0B1B31 100%);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            text-align: center;
+        }
+
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--deep-navy);
+        }
+
+        .contact-card {
+            background: var(--dark-navy);
+            border-radius: 24px;
+            border: 1px solid var(--border-gold);
+            padding: 3.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-item i {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(240, 184, 63, 0.1);
+            color: var(--brand-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--deep-navy);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+            transform: translateY(-3px);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark-navy);
+            padding: 80px 0 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--brand-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 27, 49, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-container {
+            background: var(--deep-navy);
+            border: 1px solid var(--border-gold);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Auth Tabs & Selection Cards */
+        .auth-tabs {
+            display: flex;
+            background: var(--dark-navy);
+            padding: 0.3rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auth-tab.active {
+            background: var(--brand-gold);
+            color: var(--deep-navy);
+        }
+
+        .join-selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .join-card {
+            background: var(--dark-navy);
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .join-card:hover {
+            border-color: var(--brand-gold);
+            transform: translateY(-50px);
+        }
+
+        .join-card i {
+            font-size: 2.5rem;
+            color: var(--brand-gold);
+            margin-bottom: 1rem;
+        }
+
+        .join-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .join-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Forms Styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--cream);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            background: var(--dark-navy);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--brand-gold);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-checkbox input {
+            margin-top: 0.2rem;
+            accent-color: var(--brand-gold);
+        }
+
+        .file-upload-box {
+            border: 2px dashed var(--border-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            background: rgba(11, 27, 49, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-box:hover {
+            background: rgba(240, 184, 63, 0.05);
+        }
+
+        .file-upload-box i {
+            font-size: 1.8rem;
+            color: var(--brand-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-name-display {
+            font-size: 0.85rem;
+            color: var(--brand-gold);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Option Cards (Format selection) */
+        .option-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .option-card {
+            background: var(--dark-navy);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .option-card.selected, .option-card:hover {
+            border-color: var(--brand-gold);
+            background: rgba(240, 184, 63, 0.1);
+            color: var(--brand-gold);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 3000;
+        }
+
+        .toast {
+            background: var(--deep-navy);
+            border: 1px solid var(--brand-gold);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast i {
+            color: var(--brand-gold);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-ctas {
+                justify-content: center;
+            }
+            .timeline {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .timeline::before {
+                display: none;
+            }
+            .contact-card {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--dark-navy);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: var(--transition);
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .join-selection-grid, .form-row {
+                grid-template-columns: 1fr;
+            }
+            .modal-container {
+                padding: 1.5rem;
+            }
+          .contact-details {
+    display: flex;
+    flex-direction: column; /* تجعل العناصر مرتبة عمودياً فوق بعضها */
+    gap: 1.5rem; /* مسافة بين العناصر */
+}  
+/* التنسيق الافتراضي (للهواتف والشاشات الصغيرة) */
+body {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.container {
+    width: 100%; /* يأخذ كامل عرض شاشة الهاتف */
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر فوق بعضها في الهاتف */
+}
+
+/* تنسيق الشاشات الكبيرة (الحواسيب) */
+@media (min-width: 768px) {
+    body {
+        font-size: 16px;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px; /* تحديد أقصى عرض على الحاسوب */
+        margin: 0 auto; /* توسيط المحتوى في منتصف الشاشة */
+        flex-direction: row; /* عرض العناصر بجانب بعضها في الحاسوب */
+    }
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-bg-pattern"></div>
+
+    <!-- Header / Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="nav-container">
+                <!-- Custom Ant Builder Logo matching attached image -->
+                <a href="#" class="logo">
+                    <svg class="logo-svg" viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        
+
+
+       <img src="https://i.imgur.com/ldIvwL3.png" alt="" class="logo-icon">
+                        <!-- Head -->
+                        <path d="M 235 60 C 275 60 270 120 230 135 C 190 145 180 80 235 60 Z" fill="#10233D"/>
+                        <circle cx="240" cy="85" r="7" fill="#F5F1DF"/>
+                        <!-- Antennae -->
+                        <path d="M 245 65 L 285 20 M 285 20 L 265 15" stroke="#10233D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 255 75 L 305 38 M 305 38 L 285 33" stroke="#10233D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Body segments -->
+                        <path d="M 195 135 C 225 125 220 185 185 195 C 150 205 155 145 195 135 Z" fill="#10233D"/>
+                        <path d="M 155 155 C 185 145 150 245 75 225 C 25 205 105 145 155 155 Z" fill="#10233D"/>
+                        <!-- Legs -->
+                        <path d="M 75 220 L 120 265 L 75 300 H 90" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 155 185 L 195 245 L 165 300 H 180" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 185 170 L 230 240 L 240 300 H 255" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Arms -->
+                        <path d="M 205 120 L 250 145 L 290 140" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M 215 130 L 255 165 L 290 160" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Block / Cube structure -->
+                        <polygon points="295,160 340,135 340,185 295,210" fill="#F0B83F"/>
+                        <polygon points="295,160 340,135 320,110 275,135" fill="#F7CC70"/>
+                        <!-- Architectural Building Right -->
+                        <polygon points="340,105 375,135 375,250 340,225" fill="#10233D"/>
+                        <polygon points="375,135 400,115 400,230 375,250" fill="#0B1B31"/>
+                        <polygon points="340,225 375,250 375,300 340,275" fill="#F0B83F"/>
+                    </svg>
+                    <span>NextCraft</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#why">About</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#trainers">Trainers</a></li>
+                    <li><a href="#how">How It Works</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="btn btn-login" onclick="openModal('loginModal')">Log in</button>
+                    <button class="btn btn-primary" onclick="openModal('joinModal')">Join NextCraft</button>
+                    <div class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="badge">Learn. Practice. Grow.</div>
+                    <h1>Small builders. big results <span>because every big skill starts small</span></h1>
+                    <p>NextCraft connects ambitious learners with qualified trainers through practical, career-focused training designed for the real world.</p>
+                    <div class="hero-ctas">
+                        <a href="#courses" class="btn btn-primary"><i class="fas fa-compass"></i> Explore Courses</a>
+                        <button class="btn btn-secondary" onclick="openModal('trainerModal')">Become a Trainer</button>
+                    </div>
+                </div>
+
+                
+
+                   
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why NextCraft Section -->
+    <section class="why-section" id="why">
+        <div class="container">
+            <h2 class="section-title">Why Learn With NextCraft?</h2>
+            <p class="section-subtitle">Everything you need to turn knowledge into real-world skills.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-award"></i></div>
+                    <h3>Learn From Experts</h3>
+                    <p>Connect with qualified trainers who bring real-world experience into their training.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Practical Training</h3>
+                    <p>Learn through hands-on courses designed around real skills and real challenges.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Career-Focused Skills</h3>
+                    <p>Develop skills that can help you grow professionally and discover new opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Learn Your Way</h3>
+                    <p>Choose the subjects, trainers, formats, and courses that match your goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section" id="courses">
+        <div class="container">
+            <h2 class="section-title">Explore Our Courses</h2>
+            <p class="section-subtitle">Discover practical training from trainers who know the real world.</p>
+
+            <div class="filter-wrapper">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="courseSearch" placeholder="Search courses or skills...">
+                </div>
+                <div class="category-chips">
+                    <button class="chip active" data-category="all">All</button>
+                    <button class="chip" data-category="graphic-design">Graphic Design</button>
+                    <button class="chip" data-category="digital-marketing">Digital Marketing</button>
+                    <button class="chip" data-category="programming">Programming</button>
+                    <button class="chip" data-category="data-ai">Data & AI</button>
+                    <button class="chip" data-category="business">Business</button>
+                    <button class="chip" data-category="languages">Languages</button>
+                    <button class="chip" data-category="communication">Communication</button>
+                    <button class="chip" data-category="personal-dev">Personal Development</button>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <div class="course-card" data-category="graphic-design">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Graphic Design</div>
+                        <h3 class="course-title">UI/UX & Visual Communication</h3>
+                        <p class="course-desc">Master visual communication, branding, UI/UX layouts, typography, color palettes, and modern design tools.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 12 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="digital-marketing">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Digital Marketing</div>
+                        <h3 class="course-title">SEO & Digital Growth Strategy</h3>
+                        <p class="course-desc">Learn SEO, social media management, content strategy, targeted advertising, and analytics dashboards.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 9 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="programming">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Programming</div>
+                        <h3 class="course-title">Full-Stack Web Development</h3>
+                        <p class="course-desc">Build modern websites, web applications, and software systems using cutting-edge frontend and backend technologies.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 18 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="data-ai">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Data & AI</div>
+                        <h3 class="course-title">Data Analysis & Machine Learning</h3>
+                        <p class="course-desc">Explore data visualization, predictive statistical modelling, neural network architectures, and practical AI applications.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 14 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="business">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Business & Entrepreneurship</div>
+                        <h3 class="course-title">Startup Strategy & Scaling</h3>
+                        <p class="course-desc">Develop entrepreneurial thinking, build viable business models, manage startup finances, and lead high-performing teams.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 11 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="languages">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Languages</div>
+                        <h3 class="course-title">Professional Business Languages</h3>
+                        <p class="course-desc">Develop fluency and specialized business language skills tailored for academic environments, global careers, and travel.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 8 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="communication">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Communication & Public Speaking</div>
+                        <h3 class="course-title">Public Speaking & Presentation Skills</h3>
+                        <p class="course-desc">Improve executive public speaking, master slide presentations, build unshakeable confidence, and enhance interpersonal communication.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 7 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="personal-dev">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80');">
+                        <div class="course-img-overlay"></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Personal Development</div>
+                        <h3 class="course-title">Productivity & Leadership Mastery</h3>
+                        <p class="course-desc">Build lasting habits, boost personal workplace productivity, cultivate strategic leadership capabilities, and manage lifetime goals.</p>
+                        <div class="course-footer">
+                            <span class="course-count"><i class="fas fa-book-open"></i> 10 Courses</span>
+                            <a href="javascript:void(0)" onclick="openModal('studentModal')" class="btn-explore">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-section" id="how">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Connecting learners and expert trainers in three transparent steps.</p>
+
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="step-number">01</div>
+                    <h3>Choose Your Path</h3>
+                    <p>Explore NextCraft practical courses and find the specific technical or business skills you want to master.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">02</div>
+                    <h3>Learn From Experts</h3>
+                    <p>Join interactive training led by verified NextCraft mentors, committed to crafting your expertise.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">03</div>
+                    <h3>Grow Your Future</h3>
+                    <p>Build portfolio-ready projects, earn your NextCraft certification, and craft your next career level.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section class="trainers-section" id="trainers">
+        <div class="container">
+            <h2 class="section-title">Learn From Skilled Trainers</h2>
+            <p class="section-subtitle">Meet professionals ready to share their knowledge and industry experience.</p>
+
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="trainer-badge"><i class="fas fa-shield-alt"></i> Pending Platform Connection</span>
+                    <h3>Verified Trainer Profile</h3>
+                    <p>Professional credentials and verified credentials will be listed dynamically here.</p>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="openModal('trainerModal')">Your Profile Here</button>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="trainer-avatar-placeholder">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <span class="trainer-badge"><i class="fas fa-shield-alt"></i> Pending Platform Connection</span>
+                    <h3>Qualified Trainer Profile</h3>
+                    <p>Real platform trainers undergo strict manual qualification reviews before public listing.</p>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="openModal('trainerModal')">Your Profile Here</button>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="trainer-avatar-placeholder">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <span class="trainer-badge"><i class="fas fa-shield-alt"></i> Pending Platform Connection</span>
+                    <h3>Expert Instructor Profile</h3>
+                    <p>Subject matter experts with verified field experience will be showcased dynamically.</p>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="openModal('trainerModal')">Your Profile Here</button>
+                </div>
+            </div>
+
+            <div class="trainer-cta-box">
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.8rem;">Are You a Qualified Expert?</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Join NextCraft as an instructor. Share your practical experience, guide ambitious students, and monetize your expertise.</p>
+                <button class="btn btn-primary" onclick="openModal('trainerModal')"><i class="fas fa-paper-plane"></i> Become a Trainer</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Ready to Build Your Future?</h2>
+                <p>Whether you want to develop a new skill or share your expertise, NextCraft is where growth begins.</p>
+                <div class="cta-buttons">
+                    <a href="#courses" class="btn btn-primary">Start Learning</a>
+                    <button class="btn btn-secondary" onclick="openModal('trainerModal')">Become a Trainer</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-info">
+                    <div class="badge">GET IN TOUCH</div>
+                    <h3>Let's Build Something Great Together</h3>
+                    <p>Have questions about NextCraft marketplace or verification procedures? Reach out directly to our support team.</p>
+                    <button class="btn btn-primary" onclick="showToast('Redirecting to support email...'); window.location.href='mailto:nextcraft.26@gmail.com';">
+    <i class="fas fa-envelope"></i> Get in Touch
+</button>
+                </div>
+
+               <div class="contact-details" style="display: flex; flex-direction: column; gap: 1.5rem;">
+    
+    <!-- 1. الإيميل -->
+    <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Email Us Directly</div>
+            <div>nextcraft.26@gmail.com</div>
+        </div>
+    </div> <!-- تم إضافة الإغلاق الصحيح هنا -->
+
+    <!-- 2. الهاتف -->
+    <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Phone Hotline</div>
+            <div>+213 555 019 283</div>
+        </div>
+    </div>
+
+    <!-- 3. المكان -->
+    <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Headquarters</div>
+            <div>Algiers, Algeria</div>
+        </div>
+    </div>
+
+    <!-- 4. قسم المتابعة (تحت المكان مباشرة) -->
+    <div style="margin-top: 0.5rem;">
+        <div style="font-size: 0.85rem; color: var(--cream); margin-bottom: 0.5rem;">Follow Our Community</div>
+        <div class="social-links" style="display: flex; gap: 0.75rem;">
+            <a href="https://www.instagram.com/nextcraft.2" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <svg class="logo-svg" viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <img src="https://i.imgur.com/ldIvwL3.png" alt="" class="logo-icon">
+                            <path d="M 235 60 C 275 60 270 120 230 135 C 190 145 180 80 235 60 Z" fill="#F5F1DF"/>
+                            <circle cx="240" cy="85" r="7" fill="#10233D"/>
+                            <path d="M 245 65 L 285 20 M 285 20 L 265 15" stroke="#F5F1DF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 255 75 L 305 38 M 305 38 L 285 33" stroke="#F5F1DF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 195 135 C 225 125 220 185 185 195 C 150 205 155 145 195 135 Z" fill="#F5F1DF"/>
+                            <path d="M 155 155 C 185 145 150 245 75 225 C 25 205 105 145 155 155 Z" fill="#F5F1DF"/>
+                            <path d="M 75 220 L 120 265 L 75 300 H 90" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 155 185 L 195 245 L 165 300 H 180" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 185 170 L 230 240 L 240 300 H 255" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 205 120 L 250 145 L 290 140" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 215 130 L 255 165 L 290 160" stroke="#F0B83F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polygon points="295,160 340,135 340,185 295,210" fill="#F0B83F"/>
+                            <polygon points="295,160 340,135 320,110 275,135" fill="#F7CC70"/>
+                            <polygon points="340,105 375,135 375,250 340,225" fill="#F5F1DF"/>
+                            <polygon points="375,135 400,115 400,230 375,250" fill="#E8E6DE"/>
+                            <polygon points="340,225 375,250 375,300 340,275" fill="#F0B83F"/>
+                        </svg>
+                        <span>NextCraft</span>
+                    </a>
+                    <p>Connecting ambitious learners with qualified trainers to build practical skills for the real world.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#why">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#trainers">Trainers</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>For Students</h4>
+                    <ul>
+                        <li><a href="#courses">Explore Courses</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal('studentModal')">Join as Student</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal('loginModal')">Student Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>For Trainers</h4>
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="openModal('trainerModal')">Become a Trainer</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal('loginModal')">Trainer Login</a></li>
+                        <li><a href="#trainers">Trainer Verification</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 NextCraft. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModals()"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3 class="modal-title">Welcome Back</h3>
+                <p class="modal-subtitle">Choose how you want to access NextCraft.</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchLoginTab('student')">Student Login</button>
+                <button class="auth-tab" onclick="switchLoginTab('trainer')">Trainer Login</button>
+            </div>
+
+            <form id="" onsubmit="handleLoginSubmit(event, 'Student')">
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" required placeholder="name@domain.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="Password"   class="form-control" required placeholder="••••••••">
+                </div>
+                <label class="form-checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Log in as Student</button>
+                <div style="text-align: center; font-size: 0.85rem;">
+                    <a href="javascript:void(0)" style="color: var(--text-muted); margin-right: 1rem;">Forgot password?</a>
+                    <a href="javascript:void(0)" style="color: var(--brand-gold);" onclick="openModal('studentModal')">Join as Student</a>
+                </div>
+            </form>
+
+            <form id="trainerLoginForm" style="display: none;" onsubmit="handleLoginSubmit(event, 'Trainer')">
+                <div class="form-group">
+                    <label class="form-label">Trainer Email address</label>
+                    <input type="email" class="form-control" required placeholder="trainer@domain.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" required placeholder="••••••••">
+                </div>
+                <label class="form-checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Log in as Trainer</button>
+                <div style="text-align: center; font-size: 0.85rem;">
+                    <a href="javascript:void(0)" style="color: var(--text-muted); margin-right: 1rem;">Forgot password?</a>
+                    <a href="javascript:void(0)" style="color: var(--brand-gold);" onclick="openModal('trainerModal')">Become a Trainer</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="joinModal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModals()"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3 class="modal-title">Join NextCraft</h3>
+                <p class="modal-subtitle">How would you like to join NextCraft?</p>
+            </div>
+
+            <div class="join-selection-grid">
+                <div class="join-card" onclick="openModal('studentModal')">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Join as a Student</h4>
+                    <p>Discover practical training and develop skills for your future.</p>
+                    <button class="btn btn-primary" style="width: 100%;">Join as Student</button>
+                </div>
+
+                <div class="join-card" onclick="openModal('trainerModal')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Join as a Trainer</h4>
+                    <p>Share your expertise and teach students through NextCraft.</p>
+                    <button class="btn btn-secondary" style="width: 100%;">Become a Trainer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModals()"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3 class="modal-title">Join NextCraft as a Student</h3>
+                <p class="modal-subtitle">Tell us a little about yourself so we can help you find the right training.</p>
+            </div>
+
+            <form id="studentForm" action="https://script.google.com/macros/s/AKfycbzPK07orAnJLLQLY5HaWNy960wRIluJKgy5oxuXa3Nj5jDRyir-6iS5qZ-9hGxW71g9/exec" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="Full_Name" class="form-control" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="Email_Address"  class="form-control" required placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" name="Phone_Number" class="form-control" required placeholder="+213 ...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">University / Institution</label>
+                        <input type="text" name="University_i"   class="form-control" required placeholder="University Name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Field of Study</label>
+                        <input type="text" name="Field_of_study" class="form-control" required placeholder="Computer Science, Design...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Year of Study</label>
+                        <select name="Year_of_study" class="form-control">
+                            <option>1st Year</option>
+                            <option>2nd Year</option>
+                            <option>3rd Year / Bachelor</option>
+                            <option>Master / Graduated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What skills are you interested in developing?</label>
+                    <div name="What_skills" class="category-chips" style="justify-content: flex-start; margin-top: 0.5rem;" id="studentSkillChips">
+                        <span class="chip" onclick="toggleChip(this)">Graphic Design</span>
+                        <span class="chip" onclick="toggleChip(this)">Digital Marketing</span>
+                        <span class="chip" onclick="toggleChip(this)">Programming</span>
+                        <span class="chip" onclick="toggleChip(this)">Data & AI</span>
+                        <span class="chip" onclick="toggleChip(this)">Business</span>
+                        <span class="chip" onclick="toggleChip(this)">Languages</span>
+                        <span class="chip" onclick="toggleChip(this)">Public Speaking</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Preferred Training Format?</label>
+                    <div name="Preferred" class="option-cards">
+                        <div class="option-card selected" onclick="selectOptionCard(this, 'studentFormat')">Online</div>
+                        <div class="option-card" onclick="selectOptionCard(this, 'studentFormat')">In-person</div>
+                        <div class="option-card" onclick="selectOptionCard(this, 'studentFormat')">Both</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="Password" id="studPass" class="form-control" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" name="Confirm" id="studConfirmPass" class="form-control" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <label class="form-checkbox">
+                    <input type="checkbox" required> I agree to NextCraft's Terms and Conditions & Privacy Policy.
+                </label>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Student Account</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="trainerModal">
+        <div class="modal-container" style="max-width: 750px;">
+            <button class="modal-close" onclick="closeModals()"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3 class="modal-title">Become a NextCraft Trainer</h3>
+                <p class="modal-subtitle">Share your expertise, teach practical skills, and connect with motivated learners.</p>
+            </div>
+
+            <form id="trainerRegistrationForm" action="https://script.google.com/macros/s/AKfycbw7UIZumT5gfj1oS2ltrR2OykGYlfWe_yiBZyu6DaibaTZJZ2OxjRrkn7jlZCaYSTID/exec" method="POST">
+                <h4 style="color: var(--brand-gold); margin-bottom: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem;">1. Personal Details</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="Name" class="form-control" required placeholder="Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="Email_Address" class="form-control" required placeholder="jane@domain.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" name="Phone_Number" class="form-control" required placeholder="+213 ...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Institution / Specialization</label>
+                        <input type="text" name="Institution" class="form-control" required placeholder="Field of Specialization">
+                    </div>
+                </div>
+
+                <h4 style="color: var(--brand-gold); margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem;">2. Teaching Expertise</h4>
+                <div class="form-group">
+                    <label class="form-label">What courses can you teach?</label>
+                    <textarea class="form-control" required placeholder="e.g. UI/UX Design, React.js, Advanced SEO..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Briefly describe your practical experience in this field</label>
+                    <textarea class="form-control" required placeholder="Provide details about your years of experience, key projects..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Do you have prior teaching/training experience?</label>
+                    <div class="option-cards" style="grid-template-columns: 1fr 1fr;">
+                        <div class="option-card selected" onclick="toggleTeachingExp(true, this)">YES</div>
+                        <div class="option-card" onclick="toggleTeachingExp(false, this)">NO</div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="teachingExpContainer">
+                    <label class="form-label">Describe your previous training experience</label>
+                    <textarea class="form-control" placeholder="Mention workshops, courses, mentoring experience..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What type of training can you provide?</label>
+                    <div class="option-cards">
+                        <div class="option-card selected" onclick="selectOptionCard(this, 'trainerFormat')">Online</div>
+                        <div class="option-card" onclick="selectOptionCard(this, 'trainerFormat')">In-person</div>
+                        <div class="option-card" onclick="selectOptionCard(this, 'trainerFormat')">Both</div>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--brand-gold); margin-top: 1.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem;">3. Qualification & Certification</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">To maintain high training quality, provide details of your professional certifications.</p>
+
+                <div class="form-group">
+                    <label class="form-label">Do you have professional certifications or formal diplomas?</label>
+                    <div class="option-cards" style="grid-template-columns: 1fr 1fr;">
+                        <div class="option-card selected" onclick="toggleCertUpload(true, this)">YES</div>
+                        <div class="option-card" onclick="toggleCertUpload(false, this)">NO</div>
+                    </div>
+                </div>
+
+                <div id="certContainer">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Certified Specialist</label>
+                            <input type="text" class="form-control" placeholder="e.g. AWS Certified Specialist">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Issuing Institution</label>
+                            <input type="text" class="form-control" placeholder="e.g. Amazon Web Services">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Upload Certificate (PDF, JPG, PNG - Max 10MB)</label>
+                        <div class="file-upload-box" onclick="document.getElementById('certFile').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div style="font-weight: 700; font-size: 0.9rem;">Upload your certificate</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Click to browse files</div>
+                            <input type="file" id="certFile" style="display: none;" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelected(this)">
+                        </div>
+                        <div class="file-name-display" id="fileNameDisplay" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div id="noCertNote" style="display: none;" class="form-group">
+                    <p style="font-size: 0.85rem; background: rgba(240,184,63,0.1); padding: 1rem; border-radius: 8px; color: var(--light-gold);">
+                        <i class="fas fa-info-circle"></i> You can still submit your application. Our team will contact you for a manual interview to assess your expertise.
+                    </p>
+                </div>
+
+                <h4 style="color: var(--brand-gold); margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem;">4. Account Credentials</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="trainerPass" class="form-control" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" id="trainerConfirmPass" class="form-control" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <label class="form-checkbox">
+                    <input type="checkbox" required> I confirm that all information provided is accurate and uploaded documents belong to me.
+                </label>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Trainer Application</button>
+            </form>
+        </div>
+    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const header = document.getElementById('header');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        function openModal(modalId) {
+            closeModals();
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeModals();
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModals();
+            }
+        });
+
+        function switchLoginTab(type) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const studentForm = document.getElementById('studentLoginForm');
+            const trainerForm = document.getElementById('trainerLoginForm');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            if (type === 'student') {
+                tabs[0].classList.add('active');
+                studentForm.style.display = 'block';
+                trainerForm.style.display = 'none';
+            } else {
+                tabs[1].classList.add('active');
+                studentForm.style.display = 'none';
+                trainerForm.style.display = 'block';
+            }
+        }
+
+        const courseSearch = document.getElementById('courseSearch');
+        const categoryChips = document.querySelectorAll('.category-chips .chip');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        let activeCategory = 'all';
+
+        categoryChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                categoryChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeCategory = chip.getAttribute('data-category');
+                filterCourses();
+            });
+        });
+
+        courseSearch.addEventListener('input', filterCourses);
+
+        function filterCourses() {
+            const searchTerm = courseSearch.value.toLowerCase().trim();
+
+            courseCards.forEach(card => {
+                const title = card.querySelector('.course-title').textContent.toLowerCase();
+                const desc = card.querySelector('.course-desc').textContent.toLowerCase();
+                const category = card.getAttribute('data-category');
+
+                const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+                const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleChip(chipElement) {
+            chipElement.classList.toggle('active');
+        }
+
+        function selectOptionCard(selectedCard, groupName) {
+            const parent = selectedCard.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            selectedCard.classList.add('selected');
+        }
+
+        function toggleTeachingExp(hasExp, element) {
+            selectOptionCard(element, 'exp');
+            const container = document.getElementById('teachingExpContainer');
+            container.style.display = hasExp ? 'block' : 'none';
+        }
+
+        function toggleCertUpload(hasCert, element) {
+            selectOptionCard(element, 'cert');
+            const certContainer = document.getElementById('certContainer');
+            const noCertNote = document.getElementById('noCertNote');
+
+            if (hasCert) {
+                certContainer.style.display = 'block';
+                noCertNote.style.display = 'none';
+            } else {
+                certContainer.style.display = 'none';
+                noCertNote.style.display = 'block';
+            }
+        }
+
+        function handleFileSelected(input) {
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast('File size exceeds 10MB limit!');
+                    input.value = '';
+                    return;
+                }
+                fileNameDisplay.innerHTML = `<i class="fas fa-file-pdf"></i> ${file.name} <i class="fas fa-times" onclick="removeFile(event)" style="cursor:pointer; margin-left:8px;"></i>`;
+                fileNameDisplay.style.display = 'flex';
+            }
+        }
+
+        function removeFile(e) {
+            e.stopPropagation();
+            const input = document.getElementById('certFile');
+            input.value = '';
+            document.getElementById('fileNameDisplay').style.display = 'none';
+        }
+
+        function handleLoginSubmit(event, role) {
+            event.preventDefault();
+            closeModals();
+            showToast(`Welcome back! Successfully logged in as ${role}.`);
+        }
+
+        function handleStudentSubmit(event) {
+            event.preventDefault();
+            const pass = document.getElementById('studPass').value;
+            const confirmPass = document.getElementById('studConfirmPass').value;
+
+            if (pass !== confirmPass) {
+                showToast('Passwords do not match!');
+                return;
+            }
+
+            closeModals();
+            showToast('Welcome to NextCraft! Your student profile has been created successfully.');
+        }
+
+        function handleTrainerSubmit(event) {
+            event.preventDefault();
+            const pass = document.getElementById('trainerPass').value;
+            const confirmPass = document.getElementById('trainerConfirmPass').value;
+
+            if (pass !== confirmPass) {
+                showToast('Passwords do not match!');
+                return;
+            }
+
+            closeModals();
+            showToast('Application Submitted! Our team will review your qualifications (Status: Pending Verification).');
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = 'all 0.4s ease';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
